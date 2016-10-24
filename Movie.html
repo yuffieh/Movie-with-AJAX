@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Movie assignment</title>
+</head>
+<body>
+
+<p>1. What user had the most checkouts in the last 12 months?</p>
+<p class = "mostCheckouts"></p>
+
+<p>2. What month had the most checkouts in the last 12 months?</p>
+<p class = "busiestMonth"></p>
+
+<p>3. What is the title of the movie that was the most checked out in the last 12 months?</p>
+<p class = "mostPopularMovie"></p>
+
+
+<!-- Your competitor, MovieCo, has an open API which allows you to see their last 10,000 rentals. In order to get a competitive advantage, your job is to write some code to analyze that data and spot trends.
+
+The API is available at two endpoints:
+
+* http://159.203.175.239:8080/movies.txt
+
+Contains all of the movies in the format
+
+	ID Title (Year)
+
+Example
+
+	111 Good Will Hunting (1997)
+
+	(The movie "Good Will Hunting" from 1997 has id 111)
+
+* http://159.203.175.239:8080/checkouts.txt
+
+Contains the last 12 months of checkouts in the format
+
+	userID Month MovieID
+
+Example
+
+	user95 jun 83
+
+	(The user #95 checked out movie #83 in June)
+
+	Each record in checkouts.txt records one instance of one movie being checked out by one user.
+
+Your job is to write code to answer the following questions:
+
+1. What user had the most checkouts in the last 12 months?
+
+2. What month had the most checkouts in the last 12 months?
+
+3. What is the title of the movie that was the most checked out in the last 12 months -->
+
+<script type="text/javascript">
+	
+	var checkOutData = 
+" user18 feb 46\n"+
+" user68 dec 220\n"+
+" user61 nov 43\n"+
+" user83 oct 144\n"+
+" user11 dec 159\n"+
+" user22 oct 187\n"+
+" user45 nov 174\n"+
+" user95 jun 83\n"+
+" user61 may 193\n"+
+" user67 dec 7\n"+
+" user74 apr 24\n"+
+" user6 nov 145\n"+
+" user55 may 37\n"+
+" user18 sep 92\n"+
+" user54 jan 16\n"+
+" user69 jul 77\n"+
+" user1 dec 6\n"+
+" user63 dec 99\n"+
+" user13 apr 195\n"+
+" user55 jan 235\n"+
+" user85 oct 188\n"+
+" user6 aug 215\n"+
+" user83 jan 49\n"+
+" user78 apr 48\n"+
+" user10 feb 23\n"+
+" user57 mar 215\n"+
+" user97 sep 173\n"+
+" user91 mar 128\n"+
+" user33 aug 111\n"+
+" user65 jul 158\n"+
+" user37 jun 114\n"+
+" user9 mar 45\n"+
+" user47 apr 203\n"+
+" user79 feb 93\n"+
+" user92 aug 61\n"+
+" user74 dec 39\n"+
+" user85 jul 149\n"+
+" user37 jan 58\n"+
+" user45 apr 76";//data is a string and needs to be turned into an array
+var dataUserArr = checkOutData.split('\n');
+var intermediateArr = [];
+var finalArr =[];
+var mostUser = [];
+var userIDObj = {};
+var theMaxUser;
+
+for (i =0; i < dataUserArr.length; i++) {
+	
+	intermediateArr = dataUserArr[i].split(" ");
+
+	finalArr.push(intermediateArr);
+}
+
+for (j= 0; j< finalArr.length; j++){
+
+  mostUser.push(finalArr[j][1]);
+
+}
+	mostUser.sort();
+	console.log (mostUser);
+
+// function findMode (){
+
+// 	if(mostUser.length === 0){
+// 		return null;
+
+// 	} else {
+// 		for ( j=0; j<mostUser.length; j++){
+// 			if (mostUser[j] == -1){
+// 				userIDObj.mostUser[j] = 1;
+// 			} else {
+
+// 				userIDObj.mostUser[j] = userIDObj.mostUser[j] +1;
+// 			}
+// 		}//end of for j for-loop
+
+// return userIDObj;
+// 	}//end of else
+//  console.log (userIDObj);
+
+// }// end of findMode()
+//findMode(mostUser);
+// mostUser.sort();
+// console.log (mostUser);
+// for (var k = 0; k < mostUser.length; k++) {
+// 	if (){
+
+// 	}
+
+//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf  finding all occurences of an element
+
+//
+</script>
+
+</body>
+</html>
