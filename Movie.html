@@ -51,7 +51,9 @@ Your job is to write code to answer the following questions:
 
 2. What month had the most checkouts in the last 12 months?
 
-3. What is the title of the movie that was the most checked out in the last 12 months -->
+3. What is the title of the movie that was the most checked out in the last 12 months 
+
+NEW LINKS FOUND AT: http://159.203.175.239:9001/instructions.txt-->
 
 <script type="text/javascript">
 	
@@ -116,13 +118,13 @@ Your job is to write code to answer the following questions:
 
 		}
 
-
-
-
-
-	var count = 0; // the reusable counter for each pass through the loop.
+var count = 0; // the reusable counter for each pass through the loop.
 	var maxCount = 0; //the accumulator for the highest count found.
-	var modeUser = []; //collects the element(s) of onlyUserArr with highest mode(s)
+	 //collects the element(s) of onlyUserArr with highest mode(s)
+
+
+
+	
 function findMode(){
 	//debugger;
 	for (var k = 0; k < onlyUserArr.length; k++) {
@@ -141,16 +143,48 @@ function findMode(){
 			modeUser.push(onlyUserArr[k]);
 
 		} else if (count > maxCount) {
-			modeUser = [];// Empty  modeUser array of all outmoded elements.
+			modeUser = [];// clean out the modeUser array of all outmoded elements.
 			modeUser.push(onlyUserArr[k]);// put new highest mode element into array
 			maxCount = count; //the new max occurrence
 		}//end of else if
 	//if count < maxCount then nothing happens.
 		
 	} //end of k for-loop
-	document.getElementById("mostCheckouts").innerHTML = modeUser + " ";
+	document.getElementById("mostCheckouts").innerHTML = modeUser;
+	// this way shows all elements but no space between. fix later
+
 }//end of findMode
 //After I wrote this I wondered why I wouldn't end up pushing "a" into modeUser array several times but it doesn't because I'm starting at l = k+1. E.g., when k = 5 (an instance of "a") I start looking for "a" at l = 6. So I miss all the instances of "a" that occurr at less than l= 6.
+
+
+function findModeMonth(){
+	for (var k = 0; k < onlyMonthArr.length; k++) {
+
+		count = 1;//reset count for every loop thru'. count begins at 1 because I need to count the instance being used to compare.
+
+		for(l = k+1; l<onlyMonthArr.length; l++ ){
+
+			if (onlyMonthArr[k] === onlyMonthArr[l]){
+				count = count +1;
+			}//end of if
+
+		}//end of l for-loop
+
+		if (count === maxCount){
+			modeMonth.push(onlyMonthArr[k]);
+
+		} else if (count > maxCount) {
+			modeMonth = [];// clean out the modeMonth array of all outmoded elements.
+			modeMonth.push(onlyMonthArr[k]);// put new highest mode element into array
+			maxCount = count; //the new max occurrence
+		}//end of else if
+	//if count < maxCount then nothing happens.
+		
+	} //end of k for-loop
+	document.getElementById("busiestMonth").innerHTML = modeMonth;
+	// this way shows all elements but no space between. fix later
+
+}//end of findModeMonth
 findMode (onlyUserArr);
 
 //After I wrote this I wondered why I wouldn't end up pushing "a" into modeUser array several times but it doesn't because I'm starting at l = k+1. E.g., when k = 5 (an instance of "a") I start looking for "a" at l = 6. So I miss all the instances of "a" that occurr at less than l= 6.
