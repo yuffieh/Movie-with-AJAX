@@ -1,1 +1,200 @@
-workshopMonth.html
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Movie assignment</title>
+</head>
+<body>
+
+<p>1. What user(s) had the most checkouts in the last 12 months?</p>
+<p id= "mostCheckouts"></p>
+
+<p>2. What month(s) had the most checkouts in the last 12 months?</p>
+<p class = "busiestMonth"></p>
+
+<p>3. What is/are the title(s) of the movie(s) that was/were the most checked out in the last 12 months?</p>
+<p class = "mostPopularMovie"></p>
+
+
+<!-- Your competitor, MovieCo, has an open API which allows you to see their last 10,000 rentals. In order to get a competitive advantage, your job is to write some code to analyze that data and spot trends.
+
+The API is available at two endpoints:
+
+* http://159.203.175.239:8080/movies.txt
+
+Contains all of the movies in the format
+
+	ID Title (Year)
+
+Example
+
+	111 Good Will Hunting (1997)
+
+	(The movie "Good Will Hunting" from 1997 has id 111)
+
+* http://159.203.175.239:8080/checkouts.txt
+
+Contains the last 12 months of checkouts in the format
+
+	userID Month MovieID
+
+Example
+
+	user95 jun 83
+
+	(The user #95 checked out movie #83 in June)
+
+	Each record in checkouts.txt records one instance of one movie being checked out by one user.
+
+Your job is to write code to answer the following questions:
+
+1. What user had the most checkouts in the last 12 months?
+
+2. What month had the most checkouts in the last 12 months?
+
+3. What is the title of the movie that was the most checked out in the last 12 months -->
+
+<script type="text/javascript">
+	
+	var checkOutData = 
+" user18 feb 46\n"+
+" user68 dec 220\n"+
+" user61 nov 43\n"+
+" user83 oct 144\n"+
+" user11 dec 159\n"+
+" user22 oct 187\n"+
+" user45 nov 174\n"+
+" user95 jun 83\n"+
+" user61 may 193\n"+
+" user67 dec 7\n"+
+" user74 apr 24\n"+
+" user6 nov 145\n"+
+" user55 may 37\n"+
+" user18 sep 92\n"+
+" user54 jan 16\n"+
+" user69 jul 77\n"+
+" user1 dec 6\n"+
+" user63 dec 99\n"+
+" user13 apr 195\n"+
+" user55 jan 235\n"+
+" user85 oct 188\n"+
+" user6 aug 215\n"+
+" user83 jan 49\n"+
+" user78 apr 48\n"+
+" user10 feb 23\n"+
+" user57 mar 215\n"+
+" user97 sep 173\n"+
+" user91 mar 128\n"+
+" user33 aug 111\n"+
+" user65 jul 158\n"+
+" user37 jun 114\n"+
+" user9 mar 45\n"+
+" user47 apr 203\n"+
+" user79 feb 93\n"+
+" user92 aug 61\n"+
+" user74 dec 39\n"+
+" user85 jul 149\n"+
+" user37 jan 58\n"+
+" user45 apr 76";
+
+
+		var dataUserArr = checkOutData.split('\n');
+		var intermediateArr = [];
+		var finalArr =[];
+		var onlyUserArr = [];
+		var modeUser =[];
+	for (i =0; i < dataUserArr.length; i++) {
+		
+		intermediateArr = dataUserArr[i].split(" ");
+
+		finalArr.push(intermediateArr);
+	}
+
+	for (j= 0; j< finalArr.length; j++){
+
+	  onlyUserArr.push(finalArr[j][1]);
+	  onlyUserArr.sort();//don't need to do this except for visual comparison to make sure I get all the modes.
+
+		}
+
+
+
+
+
+	var count = 0; // the reusable counter for each pass through the loop.
+	var maxCount = 0; //the accumulator for the highest count found.
+	var modeUser = []; //collects the element(s) of onlyUserArr with highest mode(s)
+function findMode(){
+	//debugger;
+	for (var k = 0; k < onlyUserArr.length; k++) {
+
+		count = 1;//reset count for every loop thru'. count begins at 1 because I need to count the instance being used to compare.
+
+		for(l = k+1; l<onlyUserArr.length; l++ ){
+
+			if (onlyUserArr[k] === onlyUserArr[l]){
+				count = count +1;
+			}//end of if
+
+		}//end of l for-loop
+
+		if (count === maxCount){
+			modeUser.push(onlyUserArr[k]);
+
+		} else if (count > maxCount) {
+			modeUser = [];// clean out the modeUser array of all outmoded elements.
+			modeUser.push(onlyUserArr[k]);// put new highest mode element into array
+			maxCount = count; //the new max occurrence
+		}//end of else if
+	//if count < maxCount then nothing happens.
+		
+	} //end of k for-loop
+	document.getElementById("mostCheckouts").innerHTML = modeUser;
+	// this way shows all elements but no space between. fix later
+
+}//end of findMode
+//After I wrote this I wondered why I wouldn't end up pushing "a" into modeUser array several times but it doesn't because I'm starting at l = k+1. E.g., when k = 5 (an instance of "a") I start looking for "a" at l = 6. So I miss all the instances of "a" that occurr at less than l= 6.
+
+//I could make findMode reusable. i.e put in a variable that can be inhabited by onlyUseArr or onlyMonthArr.  
+findMode (onlyUserArr);
+
+
+
+
+
+
+
+
+
+
+/*this is useful:
+procedure mode()
+   
+   Array A
+   
+   FOR EACH value i in A DO
+      
+      Set Count to 0
+      
+      FOR j FROM 0 to i DO
+         IF A[i] = A[j]
+            Increment Count
+         END IF
+      END FOR
+      
+      IF Count > MaxCount
+         MaxCount =  Count
+         Value    =  A[i]
+      END IF
+   
+   END FOR 
+      
+   DISPLAY Value as Mode
+   
+end procedure 
+from: https://www.tutorialspoint.com/learn_c_by_examples/mode_program_in_c.htm  I should look for more pseudocode regardless of language.
+*/
+
+</script>
+
+</body>
+</html>
