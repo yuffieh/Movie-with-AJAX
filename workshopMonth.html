@@ -163,7 +163,7 @@ function findMode(){
 	// this way shows all elements but no space between. fix later
 
 }//end of findMode
-//After I wrote this I wondered why I wouldn't end up pushing "a" into modeUser array several times but it doesn't because I'm starting at l = k+1. E.g., when k = 5 (an instance of "a") I start looking for "a" at l = 6. So I miss all the instances of "a" that occurr at less than l= 6.
+// Because I'm starting at l = k+1 I won't push the same element into modeUser. E.g., when k = 5 (an instance of "a") I start looking for "a" at l = 6. So I miss all the instances of "a" that occurr at less than l= 6.
 
 //I could make findMode reusable. i.e put in a variable that can be inhabited by onlyUseArr or onlyMonthArr.
 //other things to clean up: What's up with the first element in arrays within finalArr? ("")
