@@ -5,13 +5,13 @@
 </head>
 <body>
 
-<p>1. What user had the most checkouts in the last 12 months?</p>
-<p class = "mostCheckouts"></p>
+<p>1. What user(s) had the most checkouts in the last 12 months?</p>
+<p id= "mostCheckouts"></p>
 
-<p>2. What month had the most checkouts in the last 12 months?</p>
+<p>2. What month(s) had the most checkouts in the last 12 months?</p>
 <p class = "busiestMonth"></p>
 
-<p>3. What is the title of the movie that was the most checked out in the last 12 months?</p>
+<p>3. What is/are the title(s) of the movie(s) that was/were the most checked out in the last 12 months?</p>
 <p class = "mostPopularMovie"></p>
 
 
@@ -94,60 +94,103 @@ Your job is to write code to answer the following questions:
 " user74 dec 39\n"+
 " user85 jul 149\n"+
 " user37 jan 58\n"+
-" user45 apr 76";//data is a string and needs to be turned into an array
-var dataUserArr = checkOutData.split('\n');
-var intermediateArr = [];
-var finalArr =[];
-var mostUser = [];
-var userIDObj = {};
-var theMaxUser;
+" user45 apr 76";
 
-for (i =0; i < dataUserArr.length; i++) {
-	
-	intermediateArr = dataUserArr[i].split(" ");
 
-	finalArr.push(intermediateArr);
-}
+		var dataUserArr = checkOutData.split('\n');
+		var intermediateArr = [];
+		var finalArr =[];
+		var onlyUserArr = [];
+		var modeUser =[];
+	for (i =0; i < dataUserArr.length; i++) {
+		
+		intermediateArr = dataUserArr[i].split(" ");
 
-for (j= 0; j< finalArr.length; j++){
+		finalArr.push(intermediateArr);
+	}
 
-  mostUser.push(finalArr[j][1]);
+	for (j= 0; j< finalArr.length; j++){
 
-}
-	mostUser.sort();
-	console.log (mostUser);
+	  onlyUserArr.push(finalArr[j][1]);
+	  onlyUserArr.sort();//don't need to do this except for visual comparison to make sure I get all the modes.
 
-// function findMode (){
+		}
 
-// 	if(mostUser.length === 0){
-// 		return null;
 
-// 	} else {
-// 		for ( j=0; j<mostUser.length; j++){
-// 			if (mostUser[j] == -1){
-// 				userIDObj.mostUser[j] = 1;
-// 			} else {
 
-// 				userIDObj.mostUser[j] = userIDObj.mostUser[j] +1;
-// 			}
-// 		}//end of for j for-loop
 
-// return userIDObj;
-// 	}//end of else
-//  console.log (userIDObj);
 
-// }// end of findMode()
-//findMode(mostUser);
-// mostUser.sort();
-// console.log (mostUser);
-// for (var k = 0; k < mostUser.length; k++) {
-// 	if (){
+	var count = 0; // the reusable counter for each pass through the loop.
+	var maxCount = 0; //the accumulator for the highest count found.
+	var modeUser = []; //collects the element(s) of onlyUserArr with highest mode(s)
+function findMode(){
+	//debugger;
+	for (var k = 0; k < onlyUserArr.length; k++) {
 
-// 	}
+		count = 1;//reset count for every loop thru'. count begins at 1 because I need to count the instance being used to compare.
 
-//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf  finding all occurences of an element
+		for(l = k+1; l<onlyUserArr.length; l++ ){
 
-//
+			if (onlyUserArr[k] === onlyUserArr[l]){
+				count = count +1;
+			}//end of if
+
+		}//end of l for-loop
+
+		if (count === maxCount){
+			modeUser.push(onlyUserArr[k]);
+
+		} else if (count > maxCount) {
+			modeUser = [];// Empty  modeUser array of all outmoded elements.
+			modeUser.push(onlyUserArr[k]);// put new highest mode element into array
+			maxCount = count; //the new max occurrence
+		}//end of else if
+	//if count < maxCount then nothing happens.
+		
+	} //end of k for-loop
+	document.getElementById("mostCheckouts").innerHTML = modeUser + " ";
+}//end of findMode
+//After I wrote this I wondered why I wouldn't end up pushing "a" into modeUser array several times but it doesn't because I'm starting at l = k+1. E.g., when k = 5 (an instance of "a") I start looking for "a" at l = 6. So I miss all the instances of "a" that occurr at less than l= 6.
+findMode (onlyUserArr);
+
+//After I wrote this I wondered why I wouldn't end up pushing "a" into modeUser array several times but it doesn't because I'm starting at l = k+1. E.g., when k = 5 (an instance of "a") I start looking for "a" at l = 6. So I miss all the instances of "a" that occurr at less than l= 6.
+
+
+
+
+
+
+
+
+
+/*this is useful:
+procedure mode()
+   
+   Array A
+   
+   FOR EACH value i in A DO
+      
+      Set Count to 0
+      
+      FOR j FROM 0 to i DO
+         IF A[i] = A[j]
+            Increment Count
+         END IF
+      END FOR
+      
+      IF Count > MaxCount
+         MaxCount =  Count
+         Value    =  A[i]
+      END IF
+   
+   END FOR 
+      
+   DISPLAY Value as Mode
+   
+end procedure 
+from: https://www.tutorialspoint.com/learn_c_by_examples/mode_program_in_c.htm  I should look for more pseudocode regardless of language.
+*/
+
 </script>
 
 </body>
