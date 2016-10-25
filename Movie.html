@@ -102,14 +102,24 @@ NEW LINKS FOUND AT: http://159.203.175.239:9001/instructions.txt-->
 		var dataUserArr = checkOutData.split('\n');
 		var intermediateArr = [];
 		var finalArr =[];
+
 		var onlyUserArr = [];
+		var onlyMonthArr = [];
+		var onlyMovieArr = [];
+
 		var modeUser =[];
+		var modeMonth = [];
+		var modeMovie =[];
+
+//putting data into array
 	for (i =0; i < dataUserArr.length; i++) {
 		
 		intermediateArr = dataUserArr[i].split(" ");
 
 		finalArr.push(intermediateArr);
 	}
+
+//Separating data by type (userId, Month, MovieID)
 
 	for (j= 0; j< finalArr.length; j++){
 
@@ -118,11 +128,34 @@ NEW LINKS FOUND AT: http://159.203.175.239:9001/instructions.txt-->
 
 		}
 
-var count = 0; // the reusable counter for each pass through the loop.
+	for (j= 0; j< finalArr.length; j++){
+
+	  onlyMonthArr.push(finalArr[j][2]);
+	  onlyMonthArr.sort();//don't need to do this except for visual comparison to make sure I get all the modes.
+
+		}
+
+	for (j= 0; j< finalArr.length; j++){
+
+	  onlyMovieArr.push(finalArr[j][3]);
+	  onlyMovieArr.sort();//don't need to do this except for visual comparison to make sure I get all the modes.
+
+		}
+
+//----------------------------------------------------------------
+
+	var count = 0; // the reusable counter for each pass through the loop.
 	var maxCount = 0; //the accumulator for the highest count found.
 	 //collects the element(s) of onlyUserArr with highest mode(s)
 
+	var count1 = 0; // the reusable counter for each pass through the loop.
+	var maxCount1 = 0; //the accumulator for the highest count found.
+	 //collects the element(s) of onlyUserArr with highest mode(s)
+	var count2 = 0; // the reusable counter for each pass through the loop.
+	var maxCount2 = 0; //the accumulator for the highest count found.
+	 //collects the element(s) of onlyUserArr with highest mode(s)
 
+	 //messy but then I don't have to worry about scope as much.
 
 	
 function findMode(){
@@ -158,25 +191,27 @@ function findMode(){
 
 
 function findModeMonth(){
+
 	for (var k = 0; k < onlyMonthArr.length; k++) {
 
-		count = 1;//reset count for every loop thru'. count begins at 1 because I need to count the instance being used to compare.
+		count1 = 1;//reset count for every loop thru'. count begins at 1 because I need to count the instance being used to compare.
+
 
 		for(l = k+1; l<onlyMonthArr.length; l++ ){
 
 			if (onlyMonthArr[k] === onlyMonthArr[l]){
-				count = count +1;
+				count1 = count1 +1;
 			}//end of if
 
 		}//end of l for-loop
 
-		if (count === maxCount){
+		if (count1 === maxCount1){
 			modeMonth.push(onlyMonthArr[k]);
 
-		} else if (count > maxCount) {
+		} else if (count1 > maxCount1) {
 			modeMonth = [];// clean out the modeMonth array of all outmoded elements.
 			modeMonth.push(onlyMonthArr[k]);// put new highest mode element into array
-			maxCount = count; //the new max occurrence
+			maxCount1 = count1; //the new max occurrence
 		}//end of else if
 	//if count < maxCount then nothing happens.
 		
@@ -185,7 +220,40 @@ function findModeMonth(){
 	// this way shows all elements but no space between. fix later
 
 }//end of findModeMonth
+
+
+function findModeMovie(){
+	//debugger;
+	for (var k = 0; k < onlyMovieArr.length; k++) {
+
+		count2 = 1;//reset count for every loop thru'. count begins at 1 because I need to count the instance being used to compare.
+
+		for(l = k+1; l<onlyMovieArr.length; l++ ){
+
+			if (onlyMovieArr[k] === onlyMovieArr[l]){
+				count2 = count2 +1;
+			}//end of if
+
+		}//end of l for-loop
+
+		if (count2 === maxCount2){
+			modeMovie.push(onlyMovieArr[k]);
+
+		} else if (count2 > maxCount2) {
+			modeMovie = [];// clean out the modeMovie array of all outmoded elements.
+			modeMovie.push(onlyMovieArr[k]);// put new highest mode element into array
+			maxCount2 = count2; //the new max occurrence
+		}//end of else if
+	//if count < maxCount then nothing happens.
+		
+	} //end of k for-loop
+	document.getElementById("mostPopularMovie").innerHTML = modeMovie;
+	//add more code to get the name of movie...
+
+}//end of findModeMovie
 findMode (onlyUserArr);
+findModeMonth(onlyMonthArr);
+findModeMovie(onlyMovieArr);
 
 //After I wrote this I wondered why I wouldn't end up pushing "a" into modeUser array several times but it doesn't because I'm starting at l = k+1. E.g., when k = 5 (an instance of "a") I start looking for "a" at l = 6. So I miss all the instances of "a" that occurr at less than l= 6.
 
