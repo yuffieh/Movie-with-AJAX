@@ -9,10 +9,10 @@
 <p id= "mostCheckouts"></p>
 
 <p>2. What month(s) had the most checkouts in the last 12 months?</p>
-<p class = "busiestMonth"></p>
+<p id = "busiestMonth"></p>
 
 <p>3. What is/are the title(s) of the movie(s) that was/were the most checked out in the last 12 months?</p>
-<p class = "mostPopularMovie"></p>
+<p id = "mostPopularMovie"></p>
 
 
 <!-- Your competitor, MovieCo, has an open API which allows you to see their last 10,000 rentals. In order to get a competitive advantage, your job is to write some code to analyze that data and spot trends.
@@ -111,7 +111,7 @@ NEW LINKS FOUND AT: http://159.203.175.239:9001/instructions.txt-->
 		var modeMonth = [];
 		var modeMovie =[];
 
-//putting data into array
+//putting data into array of array elements
 	for (i =0; i < dataUserArr.length; i++) {
 		
 		intermediateArr = dataUserArr[i].split(" ");
@@ -213,7 +213,7 @@ function findModeMonth(){
 			modeMonth.push(onlyMonthArr[k]);// put new highest mode element into array
 			maxCount1 = count1; //the new max occurrence
 		}//end of else if
-	//if count < maxCount then nothing happens.
+	
 		
 	} //end of k for-loop
 	document.getElementById("busiestMonth").innerHTML = modeMonth;
@@ -244,7 +244,6 @@ function findModeMovie(){
 			modeMovie.push(onlyMovieArr[k]);// put new highest mode element into array
 			maxCount2 = count2; //the new max occurrence
 		}//end of else if
-	//if count < maxCount then nothing happens.
 		
 	} //end of k for-loop
 	document.getElementById("mostPopularMovie").innerHTML = modeMovie;
