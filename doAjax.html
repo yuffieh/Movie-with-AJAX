@@ -1,5 +1,4 @@
 doAjax.html
-puttingItTogether.htmlTHIS WORKS DON'T TOUCH IT!!!
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,12 +35,15 @@ $(document).ready(function(){
         $.ajax({
         	url: "http://159.203.175.239:9001/checkouts.txt", 
         	success: function(result){
-            console.log (result[0]);
+            console.log (result[0]);//can output result here
+            return result;
 
         }});
+        
     });
+	
 });
-
+console.log (result[1]);//can't output result here.
 
 //------------------------------------------------------------------
 
