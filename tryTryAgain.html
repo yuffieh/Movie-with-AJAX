@@ -1,15 +1,10 @@
+DON'T CHANGE THIS!!!
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Movie assignment</title>
-
-	<script
-  src="https://code.jquery.com/jquery-3.1.1.min.js"
-  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-  crossorigin="anonymous"></script>
+	<title>Movie assignment DATA PROCESSING ONLY -- IT WORKS DON"T MESS WITH IT!!!!!</title>
 </head>
 <body>
-<button onclick = "retrieveInfo()">Get Info</button>
 
 <p>1. What user(s) had the most checkouts in the last 12 months?</p>
 <p id= "mostCheckouts"></p>
@@ -21,112 +16,120 @@
 <p id = "mostPopularMovie"></p>
 
 
+<!-- Your competitor, MovieCo, has an open API which allows you to see their last 10,000 rentals. In order to get a competitive advantage, your job is to write some code to analyze that data and spot trends.
+The API is available at two endpoints:
+* http://159.203.175.239:8080/movies.txt
+Contains all of the movies in the format
+	ID Title (Year)
+Example
+	111 Good Will Hunting (1997)
+	(The movie "Good Will Hunting" from 1997 has id 111)
+* http://159.203.175.239:8080/checkouts.txt
+Contains the last 12 months of checkouts in the format
+	userID Month MovieID
+Example
+	user95 jun 83
+	(The user #95 checked out movie #83 in June)
+	Each record in checkouts.txt records one instance of one movie being checked out by one user.
+Your job is to write code to answer the following questions:
+1. What user had the most checkouts in the last 12 months?
+2. What month had the most checkouts in the last 12 months?
+3. What is the title of the movie that was the most checked out in the last 12 months 
+NEW LINKS FOUND AT: http://159.203.175.239:9001/instructions.txt-->
 
-
-<script>
+<script type="text/javascript">
 	
-debugger;
-xmlhttp = new XMLHttpRequest();
-function retrieveInfo (){
-		var checkOutData;
-		var dataUserArr = [];
+	var checkOutData = 
+" user18 feb 46\n"+
+" user68 dec 220\n"+
+" user61 nov 43\n"+
+" user83 oct 144\n"+
+" user11 dec 159\n"+
+" user22 oct 187\n"+
+" user45 nov 174\n"+
+" user95 jun 83\n"+
+" user61 may 193\n"+
+" user67 dec 7\n"+
+" user74 apr 24\n"+
+" user6 nov 145\n"+
+" user55 may 37\n"+
+" user18 sep 92\n"+
+" user54 jan 16\n"+
+" user69 jul 77\n"+
+" user1 dec 6\n"+
+" user63 dec 99\n"+
+" user13 apr 195\n"+
+" user55 jan 235\n"+
+" user85 oct 188\n"+
+" user6 aug 215\n"+
+" user83 jan 49\n"+
+" user78 apr 48\n"+
+" user10 feb 23\n"+
+" user57 mar 215\n"+
+" user97 sep 173\n"+
+" user91 mar 128\n"+
+" user33 aug 111\n"+
+" user65 jul 158\n"+
+" user37 jun 114\n"+
+" user9 mar 45\n"+
+" user47 apr 203\n"+
+" user79 feb 93\n"+
+" user92 aug 61\n"+
+" user74 dec 39\n"+
+" user85 jul 149\n"+
+" user37 jan 58\n"+
+" user45 apr 76";
+		var dataUserArr = checkOutData.split('\n');
 		var intermediateArr = [];
 		var finalArr =[];
-
 		var onlyUserArr = [];
 		var onlyMonthArr = [];
 		var onlyMovieArr = [];
-
 		var modeUser =[];
 		var modeMonth = [];
 		var modeMovie =[];
-	xmlhttp.onreadystatechange = 
-	function(){
-
-
-		if(xmlhttp.readyState ==4 && xmlhttp.status == 200){
-			
-      			checkOutData = xmlhttp.responseText;
-      			answerQuestion();    			
-		} else {
-			document.getElementById("mostCheckouts").innerHTML = "waiting for server";
-			document.getElementById("mostPopularMovie").innerHTML = "waiting for server";
-			document.getElementById("busiestMonth").innerHTML = "waiting for server";
-		}
-	};// end of function expression
-	xmlhttp.open("GET", "http://159.203.175.239:9001/checkouts.txt" ,true);
-	xmlhttp.send();
-	
-
-	function answerQuestion (){
-
-		var dataUserArr = checkOutData.split('\n');
-		
-
 //putting data into array of array elements
 	for (i =0; i < dataUserArr.length; i++) {
 		
 		intermediateArr = dataUserArr[i].split(" ");
-
 		finalArr.push(intermediateArr);
 	}
-
 //Separating data by type (userId, Month, MovieID)
-
 	for (j= 0; j< finalArr.length; j++){
-
 	  onlyUserArr.push(finalArr[j][1]);
 	  onlyUserArr.sort();//don't need to do this except for visual comparison to make sure I get all the modes.
-
 		}
-
 	for (j= 0; j< finalArr.length; j++){
-
 	  onlyMonthArr.push(finalArr[j][2]);
 	  onlyMonthArr.sort();//don't need to do this except for visual comparison to make sure I get all the modes.
-
 		}
-
 	for (j= 0; j< finalArr.length; j++){
-
 	  onlyMovieArr.push(finalArr[j][3]);
 	  onlyMovieArr.sort();//don't need to do this except for visual comparison to make sure I get all the modes.
-
 		}
-
 //----------------------------------------------------------------
-
 	var count = 0; // the reusable counter for each pass through the loop.
 	var maxCount = 0; //the accumulator for the highest count found.
 	 //collects the element(s) of onlyUserArr with highest mode(s)
-
 	var count1 = 0; // the reusable counter for each pass through the loop.
 	var maxCount1 = 0; //the accumulator for the highest count found.
 	 //collects the element(s) of onlyUserArr with highest mode(s)
 	var count2 = 0; // the reusable counter for each pass through the loop.
 	var maxCount2 = 0; //the accumulator for the highest count found.
 	 //collects the element(s) of onlyUserArr with highest mode(s)
-
 	 //messy but then I don't have to worry about scope as much.
-
 	
 function findMode(){
 	//debugger;
 	for (var k = 0; k < onlyUserArr.length; k++) {
-
 		count = 1;//reset count for every loop thru'. count begins at 1 because I need to count the instance being used to compare.
-
 		for(l = k+1; l<onlyUserArr.length; l++ ){
-
 			if (onlyUserArr[k] === onlyUserArr[l]){
 				count = count +1;
 			}//end of if
-
 		}//end of l for-loop
-
 		if (count === maxCount){
 			modeUser.push(onlyUserArr[k]);
-
 		} else if (count > maxCount) {
 			modeUser = [];// clean out the modeUser array of all outmoded elements.
 			modeUser.push(onlyUserArr[k]);// put new highest mode element into array
@@ -137,29 +140,18 @@ function findMode(){
 	} //end of k for-loop
 	document.getElementById("mostCheckouts").innerHTML = modeUser;
 	// this way shows all elements but no space between. fix later
-
 }//end of findMode
 //After I wrote this I wondered why I wouldn't end up pushing "a" into modeUser array several times but it doesn't because I'm starting at l = k+1. E.g., when k = 5 (an instance of "a") I start looking for "a" at l = 6. So I miss all the instances of "a" that occurr at less than l= 6.
-
-
 function findModeMonth(){
-
 	for (var k = 0; k < onlyMonthArr.length; k++) {
-
 		count1 = 1;//reset count for every loop thru'. count begins at 1 because I need to count the instance being used to compare.
-
-
 		for(l = k+1; l<onlyMonthArr.length; l++ ){
-
 			if (onlyMonthArr[k] === onlyMonthArr[l]){
 				count1 = count1 +1;
 			}//end of if
-
 		}//end of l for-loop
-
 		if (count1 === maxCount1){
 			modeMonth.push(onlyMonthArr[k]);
-
 		} else if (count1 > maxCount1) {
 			modeMonth = [];// clean out the modeMonth array of all outmoded elements.
 			modeMonth.push(onlyMonthArr[k]);// put new highest mode element into array
@@ -170,27 +162,18 @@ function findModeMonth(){
 	} //end of k for-loop
 	document.getElementById("busiestMonth").innerHTML = modeMonth;
 	// this way shows all elements but no space between. fix later
-
 }//end of findModeMonth
-
-
 function findModeMovie(){
 	//debugger;
 	for (var k = 0; k < onlyMovieArr.length; k++) {
-
 		count2 = 1;//reset count for every loop thru'. count begins at 1 because I need to count the instance being used to compare.
-
 		for(l = k+1; l<onlyMovieArr.length; l++ ){
-
 			if (onlyMovieArr[k] === onlyMovieArr[l]){
 				count2 = count2 +1;
 			}//end of if
-
 		}//end of l for-loop
-
 		if (count2 === maxCount2){
 			modeMovie.push(onlyMovieArr[k]);
-
 		} else if (count2 > maxCount2) {
 			modeMovie = [];// clean out the modeMovie array of all outmoded elements.
 			modeMovie.push(onlyMovieArr[k]);// put new highest mode element into array
@@ -200,24 +183,11 @@ function findModeMovie(){
 	} //end of k for-loop
 	document.getElementById("mostPopularMovie").innerHTML = modeMovie;
 	//add more code to get the name of movie...
-
 }//end of findModeMovie
-findModeMovie();
-findModeMonth();
-findMode();
-}//end of answerQuestion function
-}//end of retrieveInfo
-
+findMode (onlyUserArr);
+findModeMonth(onlyMonthArr);
+findModeMovie(onlyMovieArr);
 //After I wrote this I wondered why I wouldn't end up pushing "a" into modeUser array several times but it doesn't because I'm starting at l = k+1. E.g., when k = 5 (an instance of "a") I start looking for "a" at l = 6. So I miss all the instances of "a" that occurr at less than l= 6.
-
-
-
-
-
-
-
-
-
 /*this is useful:
 procedure mode()
    
@@ -245,7 +215,6 @@ procedure mode()
 end procedure 
 from: https://www.tutorialspoint.com/learn_c_by_examples/mode_program_in_c.htm  I should look for more pseudocode regardless of language.
 */
-
 </script>
 
 </body>

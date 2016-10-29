@@ -1,3 +1,4 @@
+aaghhhh.html
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,10 +25,8 @@
 
 
 <script>
-	
-debugger;
-xmlhttp = new XMLHttpRequest();
-function retrieveInfo (){
+
+//all the variables are global. can I reach them within all functions? 
 		var checkOutData;
 		var dataUserArr = [];
 		var intermediateArr = [];
@@ -40,6 +39,24 @@ function retrieveInfo (){
 		var modeUser =[];
 		var modeMonth = [];
 		var modeMovie =[];
+
+		var count = 0; // the reusable counter for each pass through the loop.
+		var maxCount = 0; //the accumulator for the highest count found.
+	 	//collects the element(s) of onlyUserArr with highest mode(s)
+
+		var count1 = 0; // the reusable counter for each pass through the loop.
+		var maxCount1 = 0; //the accumulator for the highest count found.
+		 //collects the element(s) of onlyUserArr with highest mode(s)
+		var count2 = 0; // the reusable counter for each pass through the loop.
+		var maxCount2 = 0; //the accumulator for the highest count found.
+		 //collects the element(s) of onlyUserArr with highest mode(s)
+
+		 //messy but then I don't have to worry about scope as much.
+debugger;
+
+xmlhttp = new XMLHttpRequest();
+function retrieveInfo (){
+		
 	xmlhttp.onreadystatechange = 
 	function(){
 
@@ -56,9 +73,116 @@ function retrieveInfo (){
 	};// end of function expression
 	xmlhttp.open("GET", "http://159.203.175.239:9001/checkouts.txt" ,true);
 	xmlhttp.send();
+	answerQuestion ();
+
+	
+}//end of retrieveInfo
+	
+//----------------------------------------------------------------
+
 	
 
-	function answerQuestion (){
+	
+function findMode(){
+	//debugger;
+	for (var k = 0; k < onlyUserArr.length; k++) {
+
+		count = 1;//reset count for every loop thru'. count begins at 1 because I need to count the instance being used to compare.
+
+		for(l = k+1; l<onlyUserArr.length; l++ ){
+
+			if (onlyUserArr[k] === onlyUserArr[l]){
+				count = count +1;
+			}//end of if
+
+		}//end of l for-loop
+
+		if (count === maxCount){
+			modeUser.push(onlyUserArr[k]);
+
+		} else if (count > maxCount) {
+			modeUser = [];// clean out the modeUser array of all outmoded elements.
+			modeUser.push(onlyUserArr[k]);// put new highest mode element into array
+			maxCount = count; //the new max occurrence
+		}//end of else if
+	//if count < maxCount then nothing happens.
+		
+	} //end of k for-loop
+	document.getElementById("mostCheckouts").innerHTML = modeUser;
+	// this way shows all elements but no space between. fix later
+
+}//end of findMode
+//------------------------------------------------------------------------------------------
+
+
+
+function findModeMonth(){
+
+	for (var k = 0; k < onlyMonthArr.length; k++) {
+
+		count1 = 1;//reset count for every loop thru'. count begins at 1 because I need to count the instance being used to compare.
+
+
+		for(l = k+1; l<onlyMonthArr.length; l++ ){
+
+			if (onlyMonthArr[k] === onlyMonthArr[l]){
+				count1 = count1 +1;
+			}//end of if
+
+		}//end of l for-loop
+
+		if (count1 === maxCount1){
+			modeMonth.push(onlyMonthArr[k]);
+
+		} else if (count1 > maxCount1) {
+			modeMonth = [];// clean out the modeMonth array of all outmoded elements.
+			modeMonth.push(onlyMonthArr[k]);// put new highest mode element into array
+			maxCount1 = count1; //the new max occurrence
+		}//end of else if
+	
+		
+	} //end of k for-loop
+	document.getElementById("busiestMonth").innerHTML = modeMonth;
+	// this way shows all elements but no space between. fix later
+
+}//end of findModeMonth
+
+//--------------------------------------------------------------------------------------
+
+function findModeMovie(){
+	//debugger;
+	for (var k = 0; k < onlyMovieArr.length; k++) {
+
+		count2 = 1;//reset count for every loop thru'. count begins at 1 because I need to count the instance being used to compare.
+
+		for(l = k+1; l<onlyMovieArr.length; l++ ){
+
+			if (onlyMovieArr[k] === onlyMovieArr[l]){
+				count2 = count2 +1;
+			}//end of if
+
+		}//end of l for-loop
+
+		if (count2 === maxCount2){
+			modeMovie.push(onlyMovieArr[k]);
+
+		} else if (count2 > maxCount2) {
+			modeMovie = [];// clean out the modeMovie array of all outmoded elements.
+			modeMovie.push(onlyMovieArr[k]);// put new highest mode element into array
+			maxCount2 = count2; //the new max occurrence
+		}//end of else if
+		
+	} //end of k for-loop
+	document.getElementById("mostPopularMovie").innerHTML = modeMovie;
+	//add more code to get the name of movie...
+
+}//end of findModeMovie
+
+
+//----------------------------------------------------------------------------------------
+
+
+function answerQuestion (){
 
 		var dataUserArr = checkOutData.split('\n');
 		
@@ -93,159 +217,11 @@ function retrieveInfo (){
 	  onlyMovieArr.sort();//don't need to do this except for visual comparison to make sure I get all the modes.
 
 		}
-
-//----------------------------------------------------------------
-
-	var count = 0; // the reusable counter for each pass through the loop.
-	var maxCount = 0; //the accumulator for the highest count found.
-	 //collects the element(s) of onlyUserArr with highest mode(s)
-
-	var count1 = 0; // the reusable counter for each pass through the loop.
-	var maxCount1 = 0; //the accumulator for the highest count found.
-	 //collects the element(s) of onlyUserArr with highest mode(s)
-	var count2 = 0; // the reusable counter for each pass through the loop.
-	var maxCount2 = 0; //the accumulator for the highest count found.
-	 //collects the element(s) of onlyUserArr with highest mode(s)
-
-	 //messy but then I don't have to worry about scope as much.
-
-	
-function findMode(){
-	//debugger;
-	for (var k = 0; k < onlyUserArr.length; k++) {
-
-		count = 1;//reset count for every loop thru'. count begins at 1 because I need to count the instance being used to compare.
-
-		for(l = k+1; l<onlyUserArr.length; l++ ){
-
-			if (onlyUserArr[k] === onlyUserArr[l]){
-				count = count +1;
-			}//end of if
-
-		}//end of l for-loop
-
-		if (count === maxCount){
-			modeUser.push(onlyUserArr[k]);
-
-		} else if (count > maxCount) {
-			modeUser = [];// clean out the modeUser array of all outmoded elements.
-			modeUser.push(onlyUserArr[k]);// put new highest mode element into array
-			maxCount = count; //the new max occurrence
-		}//end of else if
-	//if count < maxCount then nothing happens.
-		
-	} //end of k for-loop
-	document.getElementById("mostCheckouts").innerHTML = modeUser;
-	// this way shows all elements but no space between. fix later
-
-}//end of findMode
-//After I wrote this I wondered why I wouldn't end up pushing "a" into modeUser array several times but it doesn't because I'm starting at l = k+1. E.g., when k = 5 (an instance of "a") I start looking for "a" at l = 6. So I miss all the instances of "a" that occurr at less than l= 6.
-
-
-function findModeMonth(){
-
-	for (var k = 0; k < onlyMonthArr.length; k++) {
-
-		count1 = 1;//reset count for every loop thru'. count begins at 1 because I need to count the instance being used to compare.
-
-
-		for(l = k+1; l<onlyMonthArr.length; l++ ){
-
-			if (onlyMonthArr[k] === onlyMonthArr[l]){
-				count1 = count1 +1;
-			}//end of if
-
-		}//end of l for-loop
-
-		if (count1 === maxCount1){
-			modeMonth.push(onlyMonthArr[k]);
-
-		} else if (count1 > maxCount1) {
-			modeMonth = [];// clean out the modeMonth array of all outmoded elements.
-			modeMonth.push(onlyMonthArr[k]);// put new highest mode element into array
-			maxCount1 = count1; //the new max occurrence
-		}//end of else if
-	
-		
-	} //end of k for-loop
-	document.getElementById("busiestMonth").innerHTML = modeMonth;
-	// this way shows all elements but no space between. fix later
-
-}//end of findModeMonth
-
-
-function findModeMovie(){
-	//debugger;
-	for (var k = 0; k < onlyMovieArr.length; k++) {
-
-		count2 = 1;//reset count for every loop thru'. count begins at 1 because I need to count the instance being used to compare.
-
-		for(l = k+1; l<onlyMovieArr.length; l++ ){
-
-			if (onlyMovieArr[k] === onlyMovieArr[l]){
-				count2 = count2 +1;
-			}//end of if
-
-		}//end of l for-loop
-
-		if (count2 === maxCount2){
-			modeMovie.push(onlyMovieArr[k]);
-
-		} else if (count2 > maxCount2) {
-			modeMovie = [];// clean out the modeMovie array of all outmoded elements.
-			modeMovie.push(onlyMovieArr[k]);// put new highest mode element into array
-			maxCount2 = count2; //the new max occurrence
-		}//end of else if
-		
-	} //end of k for-loop
-	document.getElementById("mostPopularMovie").innerHTML = modeMovie;
-	//add more code to get the name of movie...
-
-}//end of findModeMovie
-findModeMovie();
-findModeMonth();
-findMode();
+		findMode();
+		findModeMovie();
+		findModeMonth();
 }//end of answerQuestion function
-}//end of retrieveInfo
-
-//After I wrote this I wondered why I wouldn't end up pushing "a" into modeUser array several times but it doesn't because I'm starting at l = k+1. E.g., when k = 5 (an instance of "a") I start looking for "a" at l = 6. So I miss all the instances of "a" that occurr at less than l= 6.
-
-
-
-
-
-
-
-
-
-/*this is useful:
-procedure mode()
    
-   Array A
-   
-   FOR EACH value i in A DO
-      
-      Set Count to 0
-      
-      FOR j FROM 0 to i DO
-         IF A[i] = A[j]
-            Increment Count
-         END IF
-      END FOR
-      
-      IF Count > MaxCount
-         MaxCount =  Count
-         Value    =  A[i]
-      END IF
-   
-   END FOR 
-      
-   DISPLAY Value as Mode
-   
-end procedure 
-from: https://www.tutorialspoint.com/learn_c_by_examples/mode_program_in_c.htm  I should look for more pseudocode regardless of language.
-*/
-
 </script>
 
 </body>

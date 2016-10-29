@@ -1,3 +1,4 @@
+THIS WORKS DON'T TOUCH IT!!!
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,25 +24,10 @@
 <p id = "mostPopularMovie"></p>
 
 
-<!-- 
-
-Your job is to write code to answer the following questions:
-
-1. What user had the most checkouts in the last 12 months?
-
-2. What month had the most checkouts in the last 12 months?
-
-3. What is the title of the movie that was the most checked out in the last 12 months 
-
-NEW LINKS FOUND AT: http://159.203.175.239:9001/instructions.txt
-
-http://159.203.175.239:9001/checkouts.txt checkout info
-
-http://159.203.175.239:9001/movies.txt
--->
 
 <script>
-
+var checkOutData;
+//THIS WORKS DON'T TOUCH IT!!!!!
 //debugger;
 xmlhttp = new XMLHttpRequest();
 function retrieveInfo (){
@@ -51,9 +37,12 @@ function retrieveInfo (){
 
 
 		if(xmlhttp.readyState ==4 && xmlhttp.status == 200){
-			var checkOutData;
+			
       			checkOutData = xmlhttp.responseText;
       			console.log (checkOutData);
+
+
+
 		} else {
 			document.getElementById("mostCheckouts").innerHTML = "waiting for server";
 			document.getElementById("mostPopularMovie").innerHTML = "waiting for server";
@@ -64,17 +53,9 @@ function retrieveInfo (){
 	xmlhttp.send();
 
 }//end of retrieveInfo
-retrieveInfo();
 
+//------------------------------------------------------------------
 	
-
-
-//function answerQuestion(){
-//	console.log ("http://159.203.175.239:9001/checkouts.txt");
-}
-
-
-
 
 
 

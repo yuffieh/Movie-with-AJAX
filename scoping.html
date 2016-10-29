@@ -1,0 +1,26 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>scoping Experiments</title>
+
+</head>
+<body>
+<script>
+	
+
+function b(){
+	console.log (myVar);
+}
+
+function a(){
+	myVar = 2;
+	//console.log (myVar);
+	b();
+}
+
+var myVar = 1;
+a();
+</script>
+</body>
+</html>

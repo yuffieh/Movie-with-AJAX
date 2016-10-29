@@ -1,5 +1,3 @@
-checkOut.txt
-
 var checkOutData = 
 " user18 feb 46\n"+
 " user68 dec 220\n"+
