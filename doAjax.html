@@ -29,13 +29,15 @@ puttingItTogether.htmlTHIS WORKS DON'T TOUCH IT!!!
 
 
 <script>
+var result;
 
 $(document).ready(function(){
     $("button").click(function(){
         $.ajax({
         	url: "http://159.203.175.239:9001/checkouts.txt", 
         	success: function(result){
-            processData();
+            console.log (result[0]);
+
         }});
     });
 });
@@ -81,6 +83,12 @@ function processData(){
 
 		}
 		console.log (onlyMovieArr);
+
+findMode();
+
+findModeMonth();
+
+findModeMovie();
 }//end processData()
 
 //--------------------------------------------end of array creation
@@ -176,13 +184,9 @@ function findModeMovie(){
 }//end of findModeMovie
 
 //-----------------------------------------------------
-processData();
+//processData();
 
-findMode();
 
-findModeMonth();
-
-findModeMovie();
 
 
 </script>
