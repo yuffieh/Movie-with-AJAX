@@ -10,17 +10,59 @@
 	
 
 function b(){
-	console.log (myVar);
+	console.log (myVar);//this myVar is from the outer environment. Will log 1. 
+	console.log ("------------------------");
 }
 
 function a(){
-	myVar = 2;
-	//console.log (myVar);
+	var myVar = 2; //this myVar is a new declaration so it is a new variable -not the same myVar
 	b();
 }
 
 var myVar = 1;
 a();
+//-----------------------------------------------------------------
+function x(){
+	function y(){
+		console.log(myVar1);
+	}
+	var myVar1= 2;//this will be what y() logs because x() is the outer environment
+	y();
+}
+var myVar1=1;
+x();
+y();// because y() sits within x() you will get a reference error if try to invoke. y() doesn't exist within global execution context.
+console.log ("------------------------");
+//--------------------------------------------------------------------
+
+
+function e(){
+	function f(){
+		console.log(myVar2);
+		console.log ("------------------------");
+	}
+	var myVar2 = 2;//this will be what y() logs because x() is the outer environment
+	f();
+}
+var myVar2 =1;
+x();
+y();
+
+
+//--------------------------------------------------------------------
+function d(){
+	console.log (myVar3);//this myVar is from the outer environment
+	console.log ("------------------------");
+}
+
+function c(){
+	myVar3 = 2; //this myVar is a new declaration so it is a new variable -not the same myVar
+	d();
+}
+
+var myVar3 = 1;
+c();
+
 </script>
 </body>
 </html>
