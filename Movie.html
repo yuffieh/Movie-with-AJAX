@@ -24,10 +24,6 @@
 
 
 <script>
-	
-debugger;
-xmlhttp = new XMLHttpRequest();
-function retrieveInfo (){
 		var checkOutData;
 		var dataUserArr = [];
 		var intermediateArr = [];
@@ -40,6 +36,21 @@ function retrieveInfo (){
 		var modeUser =[];
 		var modeMonth = [];
 		var modeMovie =[];
+		var count = 0; // the reusable counter for each pass through the loop.
+		var maxCount = 0; //the accumulator for the highest count found.
+		 //collects the element(s) of onlyUserArr with highest mode(s)
+
+		var count1 = 0; // the reusable counter for each pass through the loop.
+		var maxCount1 = 0; //the accumulator for the highest count found.
+		 //collects the element(s) of onlyUserArr with highest mode(s)
+		var count2 = 0; // the reusable counter for each pass through the loop.
+		var maxCount2 = 0; //the accumulator for the highest count found.
+		 //collects the element(s) of onlyUserArr with highest mode(s)
+
+xmlhttp = new XMLHttpRequest();
+
+function retrieveInfo (){
+		
 	xmlhttp.onreadystatechange = 
 	function(){
 
@@ -47,6 +58,7 @@ function retrieveInfo (){
 		if(xmlhttp.readyState ==4 && xmlhttp.status == 200){
 			
       			checkOutData = xmlhttp.responseText;
+      			console.log(checkOutData);
       			answerQuestion();    			
 		} else {
 			document.getElementById("mostCheckouts").innerHTML = "waiting for server";
@@ -57,7 +69,7 @@ function retrieveInfo (){
 	xmlhttp.open("GET", "http://159.203.175.239:9001/checkouts.txt" ,true);
 	xmlhttp.send();
 	
-
+//debugger;
 	function answerQuestion (){
 
 		var dataUserArr = checkOutData.split('\n');
@@ -96,16 +108,7 @@ function retrieveInfo (){
 
 //----------------------------------------------------------------
 
-	var count = 0; // the reusable counter for each pass through the loop.
-	var maxCount = 0; //the accumulator for the highest count found.
-	 //collects the element(s) of onlyUserArr with highest mode(s)
-
-	var count1 = 0; // the reusable counter for each pass through the loop.
-	var maxCount1 = 0; //the accumulator for the highest count found.
-	 //collects the element(s) of onlyUserArr with highest mode(s)
-	var count2 = 0; // the reusable counter for each pass through the loop.
-	var maxCount2 = 0; //the accumulator for the highest count found.
-	 //collects the element(s) of onlyUserArr with highest mode(s)
+	
 
 	 //messy but then I don't have to worry about scope as much.
 
