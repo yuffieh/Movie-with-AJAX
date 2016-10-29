@@ -30,8 +30,8 @@ puttingItTogether.htmlTHIS WORKS DON'T TOUCH IT!!!
 
 //----------------------------------------------Variables
 
-		var checkOutData;//raw txt from url
-
+		
+		var checkOutData;
 		var dataUserArr = [];
 		var intermediateArr = [];
 		var finalArr =[];
@@ -66,10 +66,10 @@ xmlhttp = new XMLHttpRequest();
 		if(xmlhttp.readyState ==4 && xmlhttp.status == 200){
 			
       			checkOutData = xmlhttp.responseText;
-      			console.log (checkOutData);
-      			
-
-
+      
+      			console.log (checkOutData[0]);
+      			//should get a u -first letter of string.
+      			processData();
 
 		} //end of if
 
@@ -78,7 +78,7 @@ xmlhttp = new XMLHttpRequest();
 	xmlhttp.send();
 //--------------------------------------------------------
 
-/*
+
 	xmlhttpName = new XMLHttpRequest();
 
 	xmlhttpName.onreadystatechange = 
@@ -88,7 +88,8 @@ xmlhttp = new XMLHttpRequest();
 		if(xmlhttpName.readyState ==4 && xmlhttpName.status == 200){
 			
       			movieNames = xmlhttpName.responseText;
-      			console.log (movieNames);
+      			console.log (movieNames[0]);
+      			//should get a #
       			
 		} //end of if
 
@@ -96,13 +97,13 @@ xmlhttp = new XMLHttpRequest();
 	xmlhttpName.open("GET", "http://159.203.175.239:9001/movies.txt" ,true);
 	xmlhttpName.send();
 
-	*/
+
 
 //------------------------------------------------------------------
 
 function processData(){
 	var dataUserArr = checkOutData.split('\n');
-
+	console.log (dataUserArr[0]);
 
 		
 
@@ -231,11 +232,13 @@ function findModeMovie(){
 }//end of findModeMovie
 
 //-----------------------------------------------------
-				processData();
+processData();
 
-				findMode();
-				findModeMonth();
-				findModeMovie();
+findMode();
+
+findModeMonth();
+
+findModeMovie();
 
 
 </script>

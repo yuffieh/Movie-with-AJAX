@@ -58,14 +58,13 @@ xmlhttp = new XMLHttpRequest();
 			
       			checkOutData = xmlhttp.responseText;
       			console.log(checkOutData);
-      			answerQuestion();    			
+      			    			
 		} //end of if
 	};// end of function expression
 	xmlhttp.open("GET", "http://159.203.175.239:9001/checkouts.txt" ,true);
 	xmlhttp.send();
 	
-//debugger;
-	function answerQuestion (){
+
 
 		var dataUserArr = checkOutData.split('\n');
 		
@@ -102,10 +101,6 @@ xmlhttp = new XMLHttpRequest();
 		}
 
 //----------------------------------------------------------------
-
-	
-
-	 //messy but then I don't have to worry about scope as much.
 
 	
 function findMode(){
@@ -203,8 +198,7 @@ function findModeMovie(){
 findModeMovie();
 findModeMonth();
 findMode();
-}//end of answerQuestion function
-}//end of retrieveInfo
+
 
 //After I wrote this I wondered why I wouldn't end up pushing "a" into modeUser array several times but it doesn't because I'm starting at l = k+1. E.g., when k = 5 (an instance of "a") I start looking for "a" at l = 6. So I miss all the instances of "a" that occurr at less than l= 6.
 
