@@ -1,3 +1,4 @@
+puttingItTogether.htmlTHIS WORKS DON'T TOUCH IT!!!
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +10,9 @@
   crossorigin="anonymous"></script>
 </head>
 <body>
-<button onclick = "retrieveInfo()">Get Info</button>
+<!--<button onclick = "findAnswers()">Get Info</button>-->
+
+<p id= "test"></p>
 
 <p>1. What user(s) had the most checkouts in the last 12 months?</p>
 <p id= "mostCheckouts"></p>
@@ -24,7 +27,11 @@
 
 
 <script>
-		var checkOutData;
+
+//----------------------------------------------Variables
+
+		var checkOutData;//raw txt from url
+
 		var dataUserArr = [];
 		var intermediateArr = [];
 		var finalArr =[];
@@ -36,6 +43,7 @@
 		var modeUser =[];
 		var modeMonth = [];
 		var modeMovie =[];
+
 		var count = 0; // the reusable counter for each pass through the loop.
 		var maxCount = 0; //the accumulator for the highest count found.
 		 //collects the element(s) of onlyUserArr with highest mode(s)
@@ -47,9 +55,10 @@
 		var maxCount2 = 0; //the accumulator for the highest count found.
 		 //collects the element(s) of onlyUserArr with highest mode(s)
 
+//---------------------------------------------XMLHttpRequest
+
 xmlhttp = new XMLHttpRequest();
 
-		
 	xmlhttp.onreadystatechange = 
 	function(){
 
@@ -57,17 +66,44 @@ xmlhttp = new XMLHttpRequest();
 		if(xmlhttp.readyState ==4 && xmlhttp.status == 200){
 			
       			checkOutData = xmlhttp.responseText;
-      			console.log(checkOutData);
-      			answerQuestion();    			
+      			console.log (checkOutData);
+      			
+
+
+
 		} //end of if
+
 	};// end of function expression
 	xmlhttp.open("GET", "http://159.203.175.239:9001/checkouts.txt" ,true);
 	xmlhttp.send();
-	
-//debugger;
-	function answerQuestion (){
+//--------------------------------------------------------
 
-		var dataUserArr = checkOutData.split('\n');
+/*
+	xmlhttpName = new XMLHttpRequest();
+
+	xmlhttpName.onreadystatechange = 
+	function(){
+
+
+		if(xmlhttpName.readyState ==4 && xmlhttpName.status == 200){
+			
+      			movieNames = xmlhttpName.responseText;
+      			console.log (movieNames);
+      			
+		} //end of if
+
+	};// end of function expression
+	xmlhttpName.open("GET", "http://159.203.175.239:9001/movies.txt" ,true);
+	xmlhttpName.send();
+
+	*/
+
+//------------------------------------------------------------------
+
+function processData(){
+	var dataUserArr = checkOutData.split('\n');
+
+
 		
 
 //putting data into array of array elements
@@ -100,14 +136,9 @@ xmlhttp = new XMLHttpRequest();
 	  onlyMovieArr.sort();//don't need to do this except for visual comparison to make sure I get all the modes.
 
 		}
+}//end processData()
 
-//----------------------------------------------------------------
-
-	
-
-	 //messy but then I don't have to worry about scope as much.
-
-	
+//--------------------------------------------end of array creation
 function findMode(){
 	//debugger;
 	for (var k = 0; k < onlyUserArr.length; k++) {
@@ -137,7 +168,6 @@ function findMode(){
 	// this way shows all elements but no space between. fix later
 
 }//end of findMode
-//After I wrote this I wondered why I wouldn't end up pushing "a" into modeUser array several times but it doesn't because I'm starting at l = k+1. E.g., when k = 5 (an instance of "a") I start looking for "a" at l = 6. So I miss all the instances of "a" that occurr at less than l= 6.
 
 
 function findModeMonth(){
@@ -171,7 +201,6 @@ function findModeMonth(){
 
 }//end of findModeMonth
 
-
 function findModeMovie(){
 	//debugger;
 	for (var k = 0; k < onlyMovieArr.length; k++) {
@@ -200,49 +229,14 @@ function findModeMovie(){
 	//add more code to get the name of movie...
 
 }//end of findModeMovie
-findModeMovie();
-findModeMonth();
-findMode();
-}//end of answerQuestion function
-}//end of retrieveInfo
 
-//After I wrote this I wondered why I wouldn't end up pushing "a" into modeUser array several times but it doesn't because I'm starting at l = k+1. E.g., when k = 5 (an instance of "a") I start looking for "a" at l = 6. So I miss all the instances of "a" that occurr at less than l= 6.
+//-----------------------------------------------------
+				processData();
 
+				findMode();
+				findModeMonth();
+				findModeMovie();
 
-
-
-
-
-
-
-
-/*this is useful:
-procedure mode()
-   
-   Array A
-   
-   FOR EACH value i in A DO
-      
-      Set Count to 0
-      
-      FOR j FROM 0 to i DO
-         IF A[i] = A[j]
-            Increment Count
-         END IF
-      END FOR
-      
-      IF Count > MaxCount
-         MaxCount =  Count
-         Value    =  A[i]
-      END IF
-   
-   END FOR 
-      
-   DISPLAY Value as Mode
-   
-end procedure 
-from: https://www.tutorialspoint.com/learn_c_by_examples/mode_program_in_c.htm  I should look for more pseudocode regardless of language.
-*/
 
 </script>
 

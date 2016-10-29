@@ -23,7 +23,6 @@ THIS WORKS DON'T TOUCH IT!!!
 <p>3. What is/are the title(s) of the movie(s) that was/were the most checked out in the last 12 months?</p>
 <p id = "mostPopularMovie"></p>
 
-<p></p>p
 
 
 
@@ -34,7 +33,6 @@ var checkOutData;
 //THIS WORKS DON'T TOUCH IT!!!!!
 //debugger;
 xmlhttp = new XMLHttpRequest();
-function retrieveInfo (){
 
 	xmlhttp.onreadystatechange = 
 	function(){
@@ -44,19 +42,13 @@ function retrieveInfo (){
 			
       			checkOutData = xmlhttp.responseText;
       			console.log (checkOutData);
+		} //end of if
 
-
-
-		} else {
-			document.getElementById("mostCheckouts").innerHTML = "waiting for server";
-			document.getElementById("mostPopularMovie").innerHTML = "waiting for server";
-			document.getElementById("busiestMonth").innerHTML = "waiting for server";
-		}
 	};// end of function expression
 	xmlhttp.open("GET", "http://159.203.175.239:9001/checkouts.txt" ,true);
 	xmlhttp.send();
 
-}//end of retrieveInfo
+
 
 //------------------------------------------------------------------
 	
