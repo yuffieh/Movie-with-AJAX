@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>work on processing movie id txt and returning movie name</title>
+</head>
+<body>
+<script>
+function findMovieName(idArr){
+//this function will get data and call function processMovieName
+	xmlhttpName = new XMLHttpRequest();
+
+	xmlhttpName.onreadystatechange = 
+	function(){
+
+
+		if(xmlhttpName.readyState ==4 && xmlhttpName.status == 200){
+			
+      			var rawMovieNames = xmlhttpName.responseText;
+      			console.log (rawMovieNames);
+      			var movieNames = ProcessMovieName(rawMovieNames);
+      			
+		} //end of if
+
+	};// end of function expression
+	xmlhttpName.open("GET", "http://159.203.175.239:9001/movies.txt" ,true);
+	xmlhttpName.send();
+
+}
+//---------------------------------------------------
+function ProcessMovieName(rawMovieNames){
+//putting data into array of array elements
+	for (i =0; i < dataUserArr.length; i++) {
+		
+		intermediateArr = dataUserArr[i].split(" ");
+
+		finalArr.push(intermediateArr);
+	}
+
+//Separating data by type (userId, Month, MovieID)
+
+	for (j= 0; j< finalArr.length; j++){
+
+	  onlyUserArr.push(finalArr[j][1]);
+	  onlyUserArr.sort();//don't need to do this except for visual comparison to make sure I get all the modes.
+
+		}
+	//some kind of processing to be done to return name of modeMovie
+	return movieNames;//the array made from string
+}
+</script>
+</body>
+</html>

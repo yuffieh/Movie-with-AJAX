@@ -1,4 +1,4 @@
-puttingItTogether.htmlTHIS WORKS DON'T TOUCH IT!!!
+puttingItTogether.html
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,7 +31,7 @@ puttingItTogether.htmlTHIS WORKS DON'T TOUCH IT!!!
 //----------------------------------------------Variables
 
 		
-		var checkOutData;
+		
 		var dataUserArr = [];
 		var intermediateArr = [];
 		var finalArr =[];
@@ -57,6 +57,7 @@ puttingItTogether.htmlTHIS WORKS DON'T TOUCH IT!!!
 
 //---------------------------------------------XMLHttpRequest
 
+
 xmlhttp = new XMLHttpRequest();
 
 	xmlhttp.onreadystatechange = 
@@ -66,10 +67,10 @@ xmlhttp = new XMLHttpRequest();
 		if(xmlhttp.readyState ==4 && xmlhttp.status == 200){
 			
       			checkOutData = xmlhttp.responseText;
-      
+      			
       			console.log (checkOutData[0]);
       			//should get a u -first letter of string.
-      			processData();
+      			processData(checkOutData);
 
 		} //end of if
 
@@ -79,29 +80,13 @@ xmlhttp = new XMLHttpRequest();
 //--------------------------------------------------------
 
 
-	xmlhttpName = new XMLHttpRequest();
-
-	xmlhttpName.onreadystatechange = 
-	function(){
-
-
-		if(xmlhttpName.readyState ==4 && xmlhttpName.status == 200){
-			
-      			movieNames = xmlhttpName.responseText;
-      			console.log (movieNames[0]);
-      			//should get a #
-      			
-		} //end of if
-
-	};// end of function expression
-	xmlhttpName.open("GET", "http://159.203.175.239:9001/movies.txt" ,true);
-	xmlhttpName.send();
+	
 
 
 
 //------------------------------------------------------------------
 
-function processData(){
+function processData(checkOutData){
 	var dataUserArr = checkOutData.split('\n');
 	console.log (dataUserArr[0]);
 
@@ -119,14 +104,14 @@ function processData(){
 
 	for (j= 0; j< finalArr.length; j++){
 
-	  onlyUserArr.push(finalArr[j][1]);
+	  onlyUserArr.push(finalArr[j][0]);
 	  onlyUserArr.sort();//don't need to do this except for visual comparison to make sure I get all the modes.
 
 		}
 
 	for (j= 0; j< finalArr.length; j++){
 
-	  onlyMonthArr.push(finalArr[j][2]);
+	  onlyMonthArr.push(finalArr[j][1]);
 	  onlyMonthArr.sort();//don't need to do this except for visual comparison to make sure I get all the modes.
 
 		}
@@ -137,6 +122,10 @@ function processData(){
 	  onlyMovieArr.sort();//don't need to do this except for visual comparison to make sure I get all the modes.
 
 		}
+
+		findMode();
+		findModeMonth();
+		findModeMovie();
 }//end processData()
 
 //--------------------------------------------end of array creation
@@ -165,7 +154,7 @@ function findMode(){
 	//if count < maxCount then nothing happens.
 		
 	} //end of k for-loop
-	document.getElementById("mostCheckouts").innerHTML = modeUser;
+	document.getElementById("mostCheckouts").innerHTML = modeUser.join(", ");
 	// this way shows all elements but no space between. fix later
 
 }//end of findMode
@@ -226,20 +215,56 @@ function findModeMovie(){
 		}//end of else if
 		
 	} //end of k for-loop
-	document.getElementById("mostPopularMovie").innerHTML = modeMovie;
+
+	var modeMovieNames = findMovieName(modeMovie);
+	document.getElementById("mostPopularMovie").innerHTML = modeMovieNames.join(", ");
 	//add more code to get the name of movie...
 
 }//end of findModeMovie
 
 //-----------------------------------------------------
-processData();
 
-findMode();
+function findMovieName(idArr){
+//this function will get data and call function processMovieName
+	xmlhttpName = new XMLHttpRequest();
 
-findModeMonth();
+	xmlhttpName.onreadystatechange = 
+	function(){
 
-findModeMovie();
 
+		if(xmlhttpName.readyState ==4 && xmlhttpName.status == 200){
+			
+      			var rawMovieNames = xmlhttpName.responseText;
+      			var movieNames = ProcessMovieName(rawMovieNames);
+      			
+		} //end of if
+
+	};// end of function expression
+	xmlhttpName.open("GET", "http://159.203.175.239:9001/movies.txt" ,true);
+	xmlhttpName.send();
+
+}
+//---------------------------------------------------
+function ProcessMovieName(rawMovieNames){
+//putting data into array of array elements
+	for (i =0; i < dataUserArr.length; i++) {
+		
+		intermediateArr = dataUserArr[i].split(" ");
+
+		finalArr.push(intermediateArr);
+	}
+
+//Separating data by type (userId, Month, MovieID)
+
+	for (j= 0; j< finalArr.length; j++){
+
+	  onlyUserArr.push(finalArr[j][1]);
+	  onlyUserArr.sort();//don't need to do this except for visual comparison to make sure I get all the modes.
+
+		}
+	//some kind of processing to be done to return name of modeMovie
+	return movieNames;//the array made from string
+}
 
 </script>
 
