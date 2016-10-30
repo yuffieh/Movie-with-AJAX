@@ -1,11 +1,14 @@
+processMovieName.html
 <!DOCTYPE html>
 <html>
 <head>
-	<title>work on processing movie id txt and returning movie name</title>
+	<title>stand alone</title>
 </head>
 <body>
 <script>
-function findMovieName(idArr){
+	
+//function findMovieName(idArr){
+	debugger;
 //this function will get data and call function processMovieName
 	xmlhttpName = new XMLHttpRequest();
 
@@ -17,8 +20,7 @@ function findMovieName(idArr){
 			
       			var rawMovieNames = xmlhttpName.responseText;
       			console.log (rawMovieNames);
-      			var movieNames = ProcessMovieName(rawMovieNames);
-      			//var nextMovieNames = rawMovieNames.startsWith(#);
+      			var movieNameMostRented = ProcessMovieName(rawMovieNames);
       			
 		} //end of if
 
@@ -26,14 +28,27 @@ function findMovieName(idArr){
 	xmlhttpName.open("GET", "http://159.203.175.239:9001/movies.txt" ,true);
 	xmlhttpName.send();
 
-}//end findMovieName
-findMovieName();
+//}//end findMovieName
+
 //---------------------------------------------------
+// Want to find the most rented movie
+//begin with rawMovieNames
+
+
 function ProcessMovieName(rawMovieNames){
 	var MovieNameArr = rawMovieNames.split('\n');
-
-	return movieNames;//the array made from string
+	console.log (MovieNameArr);
+	for (var i = 0; i <MovieNameArr.length; i++) {
+		if (MovieNameArr[i].startsWith()
+	}
+	//return movieNames;//the array made from string
 }
+
+
+
+
+
+
 </script>
 </body>
 </html>

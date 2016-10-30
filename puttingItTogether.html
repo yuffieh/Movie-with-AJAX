@@ -118,7 +118,7 @@ function processData(checkOutData){
 
 	for (j= 0; j< finalArr.length; j++){
 
-	  onlyMovieArr.push(finalArr[j][3]);
+	  onlyMovieArr.push(finalArr[j][2]);
 	  onlyMovieArr.sort();//don't need to do this except for visual comparison to make sure I get all the modes.
 
 		}
@@ -186,7 +186,7 @@ function findModeMonth(){
 	
 		
 	} //end of k for-loop
-	document.getElementById("busiestMonth").innerHTML = modeMonth;
+	document.getElementById("busiestMonth").innerHTML = modeMonth.join(", ");
 	// this way shows all elements but no space between. fix later
 
 }//end of findModeMonth
@@ -246,24 +246,7 @@ function findMovieName(idArr){
 }
 //---------------------------------------------------
 function ProcessMovieName(rawMovieNames){
-//putting data into array of array elements
-	for (i =0; i < dataUserArr.length; i++) {
-		
-		intermediateArr = dataUserArr[i].split(" ");
 
-		finalArr.push(intermediateArr);
-	}
-
-//Separating data by type (userId, Month, MovieID)
-
-	for (j= 0; j< finalArr.length; j++){
-
-	  onlyUserArr.push(finalArr[j][1]);
-	  onlyUserArr.sort();//don't need to do this except for visual comparison to make sure I get all the modes.
-
-		}
-	//some kind of processing to be done to return name of modeMovie
-	return movieNames;//the array made from string
 }
 
 </script>
