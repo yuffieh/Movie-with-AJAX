@@ -61,8 +61,7 @@ function processData(result){
 function doTasks (dataArr){
 	var mostCheckOuts = getMostCheckOuts(dataArr);
 	var busiestMonth = getBusiestMonth(dataArr);
-	var mostPopularMovieId = getMostPopularMovieId(dataArr);
-	var mostPopularMovie = getMovieData(mostPopularMovieId);
+	var mostPopularMovie = getMostPopularMovieId(dataArr);
 	document.getElementById("mostCheckoutsHere").innerHTML = mostCheckOuts.join(", ");
 	document.getElementById("busiestMonthHere").innerHTML = busiestMonth.join(", ");
 	document.getElementById("mostPopularMovieHere").innerHTML = mostPopularMovie.join(", ");
@@ -177,6 +176,7 @@ function getMovieData(mostPopularMovieId){
 };
 }
 //--------------------------------------------------------------------------------- -
+/*
 function getMostPopularMovie(mostPopularMovieId, result2){
 	var movieNameArr = result2.split("\n");
 	for (i = 0; i<movieNameArr.length; i++){
@@ -187,7 +187,7 @@ function getMostPopularMovie(mostPopularMovieId, result2){
 		}
 	}
 }
-
+*/
 </script>
 </body>
 </html>
