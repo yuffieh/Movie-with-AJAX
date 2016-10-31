@@ -25,6 +25,7 @@
 <script>
 
 function retrieveInfo(){
+	debugger;
 xmlhttp = new XMLHttpRequest();
 //I'm doing it this way because I was messing up with the jQuery .ajax so just went back to tried and true for now. Fix later. 
 		
@@ -166,6 +167,7 @@ function getMostPopularMovie(mostPopularMovieId, movieNameArr){
 	for (i = 0; i<movieNameArr.length; i++){
 		if (movieNameArr[i].startsWith(mostPopularMovieId + " ")){
 			mostPopularMovie = movieNameArr[i];
+			//returns entire element would need to do more processing if I wanted name only
 			return;
 		}
 	}
