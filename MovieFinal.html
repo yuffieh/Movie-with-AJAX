@@ -61,7 +61,8 @@ function processData(result){
 function doTasks (dataArr){
 	var mostCheckOuts = getMostCheckOuts(dataArr);
 	var busiestMonth = getBusiestMonth(dataArr);
-	var mostPopularMovie = getMostPopularMovie(mostPopularMovieId, result2);
+	var mostPopularMovieId = getMostPopularMovieId(dataArr);
+	var mostPopularMovie = getMovieData(mostPopularMovieId);
 	document.getElementById("mostCheckoutsHere").innerHTML = mostCheckOuts.join(", ");
 	document.getElementById("busiestMonthHere").innerHTML = busiestMonth.join(", ");
 	document.getElementById("mostPopularMovieHere").innerHTML = mostPopularMovie.join(", ");
@@ -149,7 +150,7 @@ var mostPopularMovieId;
 		maxCount = count;
 	}
 	getMovieData(mostPopularMovieId);
-	return mostPopularMovieId;
+	
 }
 //---------------------------------------------------------------------------------
 
@@ -160,23 +161,24 @@ function getMovieData(mostPopularMovieId){
 	xmlhttp.onreadystatechange = 
 	function(){
 
-
 		if(xmlhttp.readyState ==4 && xmlhttp.status == 200){
 			
       			result2 = xmlhttp.responseText;
-      			//console.log (result);
-      			getMostPopularMovie(mostPopularMovieId, result2);
-      			    			
+      			//console.log (result2);
+      			var movieNameArr = result2.split("\n");
+      			if (movieNameArr[i].startsWith(mostPopularMovieId + " ")){
+					mostPopularMovie = movieNameArr[i];	    			
 		} //end of if
-	};// end of function expression
+	}// end of function expression
 
 	xmlhttp.open("GET", "http://159.203.175.239:9001/movies.txt" ,true);
 	xmlhttp.send();
 
+};
 }
 //--------------------------------------------------------------------------------- -
 function getMostPopularMovie(mostPopularMovieId, result2){
-	var movieNameArr = result.split("\n");
+	var movieNameArr = result2.split("\n");
 	for (i = 0; i<movieNameArr.length; i++){
 		if (movieNameArr[i].startsWith(mostPopularMovieId + " ")){
 			mostPopularMovie = movieNameArr[i];
