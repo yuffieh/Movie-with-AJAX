@@ -12,7 +12,7 @@
 <body>
 
 <p>click this button for answers</p>
-  <button type="button" onclick="findAnswers()">Find Answers</button>
+  <button onclick = "retrieveInfo()">Get Info</button>
 
 <p>1. What user(s) had the most checkouts in the last 12 months?</p>
 <p id= "mostCheckoutsHere"></p>
@@ -24,17 +24,26 @@
 <p id = "mostPopularMovieHere"></p>
 <script>
 
-function findAnswers(){ 
-var result;
-$document.ready(function(){
-	$("button").click(function(){
-		$.ajax({
-			url: "http://159.203.175.239:9001/checkouts.txt",
-			success: console.log (result)//processData(result)
-		});
-	});
-});
-}
+function retrieveInfo(){
+xmlhttp = new XMLHttpRequest();
+//I'm doing it this way because I was messing up with the jQuery .ajax so just went back to tried and true for now. Fix later. 
+		
+	xmlhttp.onreadystatechange = 
+	function(){
+
+
+		if(xmlhttp.readyState ==4 && xmlhttp.status == 200){
+			
+      			result = xmlhttp.responseText;
+      			processData(result);
+      			    			
+		} //end of if
+	};// end of function expression
+
+	xmlhttp.open("GET", "http://159.203.175.239:9001/checkouts.txt" ,true);
+	xmlhttp.send();
+
+}//end of retrieveInfo
 //--------------------------------------------------------------------------
 
 function processData(result){
@@ -49,7 +58,7 @@ function processData(result){
 //------------------------------------------------------------------------------
 function doTasks (dataArr){
 	var mostCheckOuts = getMostCheckOuts(dataArr);
-	var busiestMonth = getbusiestMonth(dataArr);
+	var busiestMonth = getBusiestMonth(dataArr);
 	var mostPopularMovie = getMostPopularMovieId(dataArr);
 	document.getElementById(mostCheckoutsHere).innerHTML = mostCheckOuts.join(", ");
 	document.getElementById(busiestMonthHere).innerHTML = busiestMonth.join(", ");
@@ -85,7 +94,7 @@ var userArr = [];
 }
 //----------------------------------------------------------------------------------
 
-function GetbusiestMonth(dataArr){
+function GetBusiestMonth(dataArr){
 var maxCount = 0;
 var count;
 var monthArr = [];
