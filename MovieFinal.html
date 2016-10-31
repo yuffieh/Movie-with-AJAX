@@ -128,7 +128,7 @@ function getMostPopularMovieId(dataArr){
 var maxCount = 0;
 var count;
 var movieIdArr = [];
-var mostPopularMovieId;
+var mostPopularMovieId = [];
 	for (i = 0; i < dataArr.length; i++) {
 	movieIdArr.push(dataArr[i][0]);
 	}
@@ -148,8 +148,9 @@ var mostPopularMovieId;
 		mostPopularMovieId.push(movieIdArr[k]);
 		maxCount = count;
 	}
-	console.log (mostPopularMovieId);
+	console.log(mostPopularMovieId);
 	getMovieData(mostPopularMovieId);
+
 	
 }
 //---------------------------------------------------------------------------------
