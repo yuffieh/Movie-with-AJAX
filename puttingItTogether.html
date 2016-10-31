@@ -56,7 +56,7 @@ puttingItTogether.html
 		 //collects the element(s) of onlyUserArr with highest mode(s)
 
 //---------------------------------------------XMLHttpRequest
-
+function getFile(filepath, callback){
 
 xmlhttp = new XMLHttpRequest();
 
@@ -67,19 +67,15 @@ xmlhttp = new XMLHttpRequest();
 		if(xmlhttp.readyState ==4 && xmlhttp.status == 200){
 			
       			checkOutData = xmlhttp.responseText;
-      			
-      			console.log (checkOutData[0]);
-      			//should get a u -first letter of string.
-      			processData(checkOutData);
+      			callback(checkOutData);
+		}
 
-		} //end of if
-
-	};// end of function expression
-	xmlhttp.open("GET", "http://159.203.175.239:9001/checkouts.txt" ,true);
+	};
+	xmlhttp.open("GET", filepath, true);
 	xmlhttp.send();
+
+}
 //--------------------------------------------------------
-
-
 	
 
 
@@ -155,7 +151,7 @@ function findMode(){
 		
 	} //end of k for-loop
 	document.getElementById("mostCheckouts").innerHTML = modeUser.join(", ");
-	// this way shows all elements but no space between. fix later
+	
 
 }//end of findMode
 
@@ -216,39 +212,42 @@ function findModeMovie(){
 		
 	} //end of k for-loop
 
-	var modeMovieNames = findMovieName(modeMovie);
-	document.getElementById("mostPopularMovie").innerHTML = modeMovieNames.join(", ");
-	//add more code to get the name of movie...
+	
+	
+	findMovieName(modeMovie);
 
 }//end of findModeMovie
 
 //-----------------------------------------------------
 
-function findMovieName(idArr){
+function findMovieName(modeMovie){
+	//remember modeMovie is the movie's id and it is an array. 
 //this function will get data and call function processMovieName
 	xmlhttpName = new XMLHttpRequest();
 
 	xmlhttpName.onreadystatechange = 
 	function(){
 
-
 		if(xmlhttpName.readyState ==4 && xmlhttpName.status == 200){
 			
       			var rawMovieNames = xmlhttpName.responseText;
-      			var movieNames = ProcessMovieName(rawMovieNames);
-      			
+      			processMovieName(rawMovieNames);
 		} //end of if
 
 	};// end of function expression
 	xmlhttpName.open("GET", "http://159.203.175.239:9001/movies.txt" ,true);
 	xmlhttpName.send();
-
 }
 //---------------------------------------------------
 function ProcessMovieName(rawMovieNames){
-
+	var movieNameArr = rawMovieNames.split("\n");
+	for (var i = 0; i < movieNameArr.length; i++) {
+		if (movieNameArr[i].startsWith(modeMovie)){
+			document.getElementById("mostPopularMovie").innerHTML = movieNameArr[i];
+		}
+	}
 }
-
+getFile("http://159.203.175.239:9001/checkouts.txt", processData);
 </script>
 
 </body>

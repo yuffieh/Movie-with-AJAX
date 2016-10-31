@@ -1,0 +1,111 @@
+MovieFinal.html
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Movie assignment</title>
+
+	<script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+</head>
+<body>
+<!--<button onclick = "findAnswers()">Get Info</button>-->
+
+<p id= "test"></p>
+
+<p>1. What user(s) had the most checkouts in the last 12 months?</p>
+<p id= "mostCheckouts"></p>
+
+<p>2. What month(s) had the most checkouts in the last 12 months?</p>
+<p id = "busiestMonth"></p>
+
+<p>3. What is/are the title(s) of the movie(s) that was/were the most checked out in the last 12 months?</p>
+<p id = "mostPopularMovie"></p>
+<script>
+
+function getFile(filepath, callback){
+  	//filepath leads to the txt file (could be url or local)
+  	//callback is a function that is called when the txt file has been loaded
+  	xmlhttp = new XMLHttpRequest();
+	xmlhttp.onreadystatechange = function(){
+		if(xmlhttp.readyState ==4 && xmlhttp.status == 200){
+            processData(xmlhttp.responseText);
+            //don't need to create a variable as this is only time responseText will be used.
+            //processData is the callback function
+		} //end of if
+	};// end of function expression
+	xmlhttp.open("GET", filepath ,true);
+	xmlhttp.send();
+}//end of getFile
+//--------------------------------------------------------------------------------
+function processData(checkOutData){
+	var dataUserArr = checkOutData.split('\n');
+	console.log (dataUserArr[0]);
+
+
+
+	for (i =0; i < dataUserArr.length; i++) {
+		
+		intermediateArr = dataUserArr[i].split(" ");
+
+		finalArr.push(intermediateArr);
+		doTasks(dataUserArr);
+		}
+	}//end of processData
+//--------------------------------------------------------------------------------
+
+ function doTasks(finalArr){
+	var mostCheckouts = getMostCheckouts(finalArr);
+    var busiestMonth = getBusiestMonth(finalArr);
+    var mostPopularMovie = getMostPopularMovie(finalArr);
+  	document.getElementById("mostCheckouts").innerHTML = mostCheckouts.join(", ");
+  	document.getElementById("busiestMonth").innerHTML = busiestMonth;
+  	document.getElementById("mostPopularMovie").innerHTML = mostPopularMovie;
+}//end of doTasks
+
+//----------------------------------------------------------------------------------------
+function getMostCheckouts(finalArr){
+  	var onlyUserArr = [];
+  	for (var i = 0; i < finalArr.length; i++) {
+
+	  	onlyUserArr.push(finalArr[i][0]);
+
+	 }
+	  	for (var k = 0; k < onlyUserArr.length; k++) {
+
+		count = 1;//reset count for every loop thru'. count begins at 1 because I need to count the instance being used to compare.
+
+		for(l = k+1; l<onlyUserArr.length; l++ ){
+
+			if (onlyUserArr[k] === onlyUserArr[l]){
+				count = count +1;
+			}//end of if
+
+		}//end of l for-loop
+
+		if (count === maxCount){
+			modeUser.push(onlyUserArr[k]);
+
+		} else if (count > maxCount) {
+			modeUser = [];// clean out the modeUser array of all outmoded elements.
+			modeUser.push(onlyUserArr[k]);// put new highest mode element into array
+			maxCount = count; //the new max occurrence
+		}//end of else if
+	//if count < maxCount then nothing happens.
+		
+	} //end of k for-loop
+
+		}
+	return mostCheckOuts;
+  	}
+
+function getBusiestMonth(finalArr){
+	var busiestMonth;
+
+}
+  
+ 
+
+//----------------------------------------------------------------------------------------
+getFile("http://159.203.175.239:9001/checkouts.txt", processData);
