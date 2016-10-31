@@ -35,6 +35,7 @@ xmlhttp = new XMLHttpRequest();
 		if(xmlhttp.readyState ==4 && xmlhttp.status == 200){
 			
       			result = xmlhttp.responseText;
+      			//console.log (result);
       			processData(result);
       			    			
 		} //end of if
@@ -163,7 +164,7 @@ function getMovieData(mostPopularMovieId){
 //----------------------------------------------------------------------------------
 function getMostPopularMovie(mostPopularMovieId, movieNameArr){
 	for (i = 0; i<movieNameArr.length; i++){
-		if (movieNameArr[i].startsWith(mostPopularMovieId)){
+		if (movieNameArr[i].startsWith(mostPopularMovieId + " ")){
 			mostPopularMovie = movieNameArr[i];
 			return;
 		}
